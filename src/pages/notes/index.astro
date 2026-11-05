@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import { notes } from "../../data/site";
+---
+
+<Base
+  title="记录 · 宋子鐸"
+  description="宋子鐸的笔记：建站过程、技术上的坑，以及一些还没想清楚的实验。"
+  path="/notes/"
+>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Notes</p>
+      <h1>记录</h1>
+      <p>写给自己看的短笔记，顺手公开。</p>
+    </header>
+
+    <div class="note-list">
+      {
+        notes.map((n) => (
+          <a class="note-item" href={`/notes/${n.slug}/`}>
+            <span class="note-date">{n.date}</span>
+            <span class="note-title">{n.title}</span>
+            <span class="note-arrow">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</Base>

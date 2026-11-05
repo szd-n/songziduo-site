@@ -1,0 +1,56 @@
+---
+import Base from "../../layouts/Base.astro";
+import { works } from "../../data/site";
+
+export function getStaticPaths() {
+  return works.map((work) => ({
+    params: { slug: work.slug },
+    props: { work },
+  }));
+}
+
+const { work } = Astro.props;
+---
+
+<Base
+  title={`${work.title} · 宋子鐸`}
+  description={work.summary}
+  path={`/works/${work.slug}/`}
+  type="article"
+>
+  <article class="wrap">
+    <header class="page-head">
+      <p class="kicker">Work {work.index}</p>
+      <h1>{work.title}</h1>
+      <p>{work.summary}</p>
+    </header>
+
+    <dl class="meta-grid">
+      <div>
+        <dt>Year</dt>
+        <dd>{work.year}</dd>
+      </div>
+      <div>
+        <dt>Role</dt>
+        <dd>{work.role}</dd>
+      </div>
+      <div>
+        <dt>Stack</dt>
+        <dd>{work.stack.join(" / ")}</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>{work.status}</dd>
+      </div>
+    </dl>
+
+    <div class="prose">
+      {work.body.map((p) => <p>{p}</p>)}
+      {work.note && <p class="callout">{work.note}</p>}
+    </div>
+
+    <p style="margin-top:48px">
+      <a class="btn btn-ghost" href="/works/">← 返回作品</a>
+    </p>
+  </article>
+</Base>

@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="404 · 页面不存在 · 宋子鐸"
+  description="这条路径不存在。可能是链接旧了，也可能是我还没写这一页。"
+  path="/404.html"
+  noindex={true}
+>
+  <div class="wrap">
+    <section class="notfound">
+      <p class="kicker">Error</p>
+      <p class="code">404</p>
+      <h1 style="font-size:clamp(1.3rem,3vw,1.7rem)">这条路径不存在。</h1>
+      <p class="lede">可能是链接旧了，也可能是我还没写这一页。</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/">回首页</a>
+        <a class="btn btn-ghost" href="/works/">看作品</a>
+      </div>
+    </section>
+  </div>
+</Base>

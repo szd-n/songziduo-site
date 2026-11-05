@@ -1,0 +1,125 @@
+---
+import "../styles/global.css";
+import { site, nav } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  type?: string;
+  /** 仅 404 使用：错误页不应进入索引 */
+  noindex?: boolean;
+}
+
+const { title, description, path = Astro.url.pathname, type = "website", noindex = false } = Astro.props;
+
+const canonical = new URL(path, site.url).href;
+const ogImage = new URL("/og.png", site.url).href;
+const current = Astro.url.pathname;
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  alternateName: [site.nameAlt, site.nameEn],
+  url: site.url + "/",
+  jobTitle: "学生",
+  email: "mailto:" + site.email,
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: site.school,
+  },
+  knowsAbout: site.skills,
+  knowsLanguage: ["zh-CN", "en"],
+};
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: `${site.name} · ${site.nameEn}`,
+  url: site.url + "/",
+  inLanguage: "zh-CN",
+  description,
+  author: { "@type": "Person", name: site.name },
+};
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"}
+    />
+    <meta name="author" content={site.name} />
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="theme-color" content="#070a12" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" hreflang="zh-CN" href={canonical} />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={`${site.name} · ${site.nameEn}`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify([personLd, websiteLd])} />
+  </head>
+  <body>
+    <a class="skip" href="#main">跳到正文</a>
+
+    <div class="bg" aria-hidden="true">
+      <span class="blob b1"></span>
+      <span class="blob b2"></span>
+      <span class="blob b3"></span>
+    </div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/">
+          {site.name}
+          <small>{site.nameEn}</small>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          {
+            nav.map((item) => (
+              <a
+                href={item.href}
+                aria-current={current.startsWith(item.href) ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            ))
+          }
+          <a href={`mailto:${site.email}`}>邮箱</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© {new Date().getFullYear()} {site.name} · 用 Astro 构建</span>
+        <span>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

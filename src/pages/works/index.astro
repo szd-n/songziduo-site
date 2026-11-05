@@ -1,0 +1,38 @@
+---
+import Base from "../../layouts/Base.astro";
+import { works } from "../../data/site";
+---
+
+<Base
+  title="作品 · 宋子鐸"
+  description="宋子鐸的项目：AdSkip（Android 无障碍开屏广告跳过）与时间折叠（HTMLMediaElement 播放器实验）。"
+  path="/works/"
+>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Selected Work</p>
+      <h1>作品</h1>
+      <p>两个做完的东西。都不大，但都是自己从想法写到能跑起来。</p>
+    </header>
+
+    <div class="work-list">
+      {
+        works.map((w) => (
+          <a class="work-card" href={`/works/${w.slug}/`}>
+            <span class="work-index">{w.index}</span>
+            <div class="work-body">
+              <h3>{w.title}</h3>
+              <p>{w.summary}</p>
+              <div class="tags">
+                {w.stack.map((s) => (
+                  <span class="tag">{s}</span>
+                ))}
+              </div>
+            </div>
+            <span class="work-go">{w.year} →</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</Base>

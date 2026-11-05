@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro";
+import { site, works, notes } from "../data/site";
+---
+
+<Base
+  title="宋子鐸 · 软件技术 · 个人主页"
+  description="宋子鐸（Song Ziduo），河北政法职业学院软件技术专业在读。这里放我做完的项目、踩过的坑和还在折腾的实验：Android 无障碍工具、播放器前端实验，以及建站记录。"
+  path="/"
+>
+  <section class="hero wrap">
+    <div>
+      <p class="kicker">Software Technology · 在读</p>
+      <h1 class="hero-name">{site.name}</h1>
+      <p class="name-en">{site.nameEn}</p>
+      <p class="tagline">{site.tagline}</p>
+      <p class="intro">{site.intro}</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/works/">看作品 →</a>
+        <a class="btn btn-ghost" href="/about/">关于我</a>
+        <a class="btn btn-ghost" href={`mailto:${site.email}`}>写信</a>
+      </div>
+      <p class="status">{site.status}</p>
+    </div>
+
+    <div class="portrait">
+      <img
+        src="/avatar.jpg"
+        alt="宋子鐸的头像"
+        width="560"
+        height="560"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="works-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Selected Work</p>
+        <h2 id="works-title">作品</h2>
+      </div>
+      <a class="more" href="/works/">全部 →</a>
+    </div>
+
+    <div class="work-list">
+      {
+        works.map((w) => (
+          <a class="work-card" href={`/works/${w.slug}/`}>
+            <span class="work-index">{w.index}</span>
+            <div class="work-body">
+              <h3>{w.title}</h3>
+              <p>{w.summary}</p>
+              <div class="tags">
+                {w.stack.slice(0, 3).map((s) => (
+                  <span class="tag">{s}</span>
+                ))}
+              </div>
+            </div>
+            <span class="work-go">查看 →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="notes-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Notes</p>
+        <h2 id="notes-title">记录</h2>
+      </div>
+      <a class="more" href="/notes/">全部 →</a>
+    </div>
+
+    <div class="note-list">
+      {
+        notes.map((n) => (
+          <a class="note-item" href={`/notes/${n.slug}/`}>
+            <span class="note-date">{n.date}</span>
+            <span class="note-title">{n.title}</span>
+            <span class="note-arrow">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="skills-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Toolbox</p>
+        <h2 id="skills-title">技能与证书</h2>
+      </div>
+    </div>
+
+    <div class="chips">
+      {site.skills.map((s) => <span class="chip">{s}</span>)}
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:14px">
+      {site.certs.join(" · ")}
+    </p>
+  </section>
+
+  <section class="section wrap" aria-labelledby="contact-title">
+    <div class="section-head">
+      <div>
+        <p class="kicker">Contact</p>
+        <h2 id="contact-title">想聊项目，或者只是想说句话</h2>
+      </div>
+    </div>
+    <p class="lede">邮件最快，我基本都会看。</p>
+    <div class="cta-row" style="margin-top:22px">
+      <a class="btn btn-primary" href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+  </section>
+</Base>

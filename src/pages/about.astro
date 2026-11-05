@@ -1,0 +1,67 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+---
+
+<Base
+  title="关于 · 宋子鐸"
+  description="宋子鐸，河北政法职业学院软件技术专业在读。会 C、C#、MySQL，习惯用 AI agent 协作开发，喜欢做能真正跑起来的小工具。"
+  path="/about/"
+>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">About</p>
+      <h1>关于</h1>
+      <p>一个还在学的人，和一堆还没做完的东西。</p>
+    </header>
+
+    <dl class="meta-grid">
+      <div>
+        <dt>School</dt>
+        <dd>{site.school}</dd>
+      </div>
+      <div>
+        <dt>Major</dt>
+        <dd>{site.major} · 专科在读</dd>
+      </div>
+      <div>
+        <dt>Base</dt>
+        <dd>石家庄</dd>
+      </div>
+      <div>
+        <dt>Email</dt>
+        <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+      </div>
+    </dl>
+
+    <div class="prose">
+      <p>
+        我在河北政法职业学院读软件技术。喜欢「东西能跑起来」的感觉，所以更愿意做能装到手机上、能被别人用一下的小工具，而不是停在 demo。
+      </p>
+      <p>
+        技能是慢慢攒的：C 和 C# 打底，MySQL 管数据，计算机网络帮我理解它们为什么这样工作；AI agent 是我现在的常用工具，写代码、查资料、做重复劳动都在用。
+      </p>
+      <p>
+        这个站是我自己的记录本——做完的项目放作品里，过程中想明白的事放记录里。内容会一直加，但不着急。
+      </p>
+
+      <h2>证书</h2>
+      <div class="chips">
+        {site.certs.map((c) => <span class="chip">{c}</span>)}
+      </div>
+
+      <h2>会的东西</h2>
+      <div class="chips">
+        {site.skills.map((s) => <span class="chip">{s}</span>)}
+      </div>
+
+      <h2>联系</h2>
+      <p>
+        想聊项目、问问题，或者只是想说句话，邮件最快：<a
+          href={`mailto:${site.email}`}
+          style="border-bottom:1px solid rgba(255,255,255,.25)">{site.email}</a
+        >。
+      </p>
+    </div>
+  </div>
+</Base>
