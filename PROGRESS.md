@@ -1,6 +1,6 @@
 # 进度存档（供下次继续）
 
-> 最后更新：2026-11-05 00:11 · 当前进度：第 0–4 步完成，第 5 步未开始
+> 最后更新：2026-11-05 21:45 · 当前进度：第 0–4 步完成；第 5 步已 `git init` + 首次 commit，等 push
 
 ## 已完成
 
@@ -22,12 +22,20 @@
 | 头像 | `public/avatar.jpg`（720×720，冷调处理过）；原图在 DSH attachment |
 | OG 图 | `public/og.png`，由 `scripts/make-assets.py` 生成 |
 
+## 仓库状态
+
+- GitHub 用户名：`szd-n`
+- 本地仓库：`songziduo-site/.git`，分支 `main`
+- 首次 commit：`c1f2edb`（23 个文件，7226 行）
+- 远端：待建，建议 `https://github.com/szd-n/songziduo-site.git`（public，不要勾选 README/gitignore/license）
+- 本机没有 `gh` CLI，push 用 HTTPS + Git Credential Manager 或 PAT
+
 ## 待办（按顺序）
 
-1. [ ] **用户视觉验收**：浏览器打开预览，确认首屏/移动端
+1. [ ] **用户视觉验收**：浏览器打开 `http://localhost:4321/`（预览已重启）
 2. [ ] **Lighthouse**：用户在 Edge DevTools 跑 Mobile，把分数发回
-3. [ ] **用户注册 GitHub + Cloudflare**（我不能代注册/代登录），拿到 GitHub 用户名
-4. [ ] 第 5 步：`git init` → 首 commit → 建仓 → push（推前给用户看 diff 和命令）
+3. [x] **用户注册 GitHub**（用户名 `szd-n`）；Cloudflare 仍待注册
+4. [ ] 第 5 步剩余：建远端仓库 → `git remote add` → `git push -u origin main`
 5. [ ] 第 6 步：Cloudflare Pages 部署（优先 Git 连接），验证线上 sitemap/robots/canonical
 6. [ ] 第 7 步：生成 Google / 百度验证文件 + 逐步提交清单（不代提交、不声称已收录）
 7. [ ] 第 8 步：上线审计（200 / robots / noindex / canonical / sitemap / 移动端 / 大陆访问），输出 P0/P1/P2
