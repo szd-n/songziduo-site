@@ -1,6 +1,6 @@
 # 进度存档（供下次继续）
 
-> 最后更新：2026-11-05 21:45 · 当前进度：第 0–4 步完成；第 5 步已 `git init` + 首次 commit，等 push
+> 最后更新：2026-11-05 22:40 · 第 0–5 步完成（23 个文件已在 GitHub）；第 6 步卡在 github.com 连接被重置
 
 ## 已完成
 
@@ -27,18 +27,38 @@
 - GitHub 用户名：`szd-n`
 - 本地仓库：`songziduo-site/.git`，分支 `main`
 - 首次 commit：`c1f2edb`（23 个文件，7226 行）
-- 远端：待建，建议 `https://github.com/szd-n/songziduo-site.git`（public，不要勾选 README/gitignore/license）
-- 本机没有 `gh` CLI，push 用 HTTPS + Git Credential Manager 或 PAT
+- 远端：已建并推送，`https://github.com/szd-n/songziduo-site`（main = `f2635f7`，23 个文件）
+- 本机没有 `gh` CLI；`git` 也不在系统 PATH（只有 GitHub Desktop 自带一份）
+- **认证问题**：GCM（helper-selector → manager）在非交互环境里读不到密码，`git push` 会卡在登录；
+  在沙箱里 push 还受子进程限制。后续要推送，需在能弹登录窗口的终端里执行，或在 GitHub 网页直接改文件
+- 未提交：`public/_headers`（Cloudflare 安全头与缓存配置），等认证恢复后补推
 
-## 待办（按顺序）
+## 还差什么才能上线
 
-1. [ ] **用户视觉验收**：浏览器打开 `http://localhost:4321/`（预览已重启）
-2. [ ] **Lighthouse**：用户在 Edge DevTools 跑 Mobile，把分数发回
-3. [x] **用户注册 GitHub**（用户名 `szd-n`）；Cloudflare 仍待注册
-4. [ ] 第 5 步剩余：建远端仓库 → `git remote add` → `git push -u origin main`
-5. [ ] 第 6 步：Cloudflare Pages 部署（优先 Git 连接），验证线上 sitemap/robots/canonical
-6. [ ] 第 7 步：生成 Google / 百度验证文件 + 逐步提交清单（不代提交、不声称已收录）
-7. [ ] 第 8 步：上线审计（200 / robots / noindex / canonical / sitemap / 移动端 / 大陆访问），输出 P0/P1/P2
+| 步 | 状态 | 要做的事 | 谁做 |
+|---|---|---|---|
+| 6 | **阻塞** | Cloudflare Pages 连 Git → 填 `npm run build` + `dist` → Deploy | 你点授权，我做验证 |
+| 6.1 | 待办 | 线上验证 `/`、`/robots.txt`、`/sitemap-index.xml`、canonical、404 | 我 |
+| 7 | 待办 | Google Search Console / 百度搜索资源平台验证文件 + 提交 sitemap | 我生成文件，你提交 |
+| 8 | 待办 | 上线审计：200 / robots / noindex / canonical / sitemap / 移动端 / 大陆访问 → P0/P1/P2 | 我 |
+| 杂 | 待办 | 补推 `public/_headers`；视觉验收；Lighthouse Mobile 分数 | 等凭据/你确认 |
+
+**第 6 步的阻塞原因**：Cloudflare 的 "Connect to Git" 会跳到 `github.com/login/oauth/...`，
+而你这条网络连接被重置（`ERR_CONNECTION_RESET`），OAuth 走不完。三条出路：
+① 过一阵重试；② 开 Cloudflare WARP 再授权；③ 改用 Pages Direct Upload（我 wrangler 直传，不经过 github.com）。
+
+## 明天的第一件事
+
+1. 打开 https://dash.cloudflare.com/ → Workers & Pages → Create → Pages → Connect to Git
+2. 能进到选仓库页面就继续；还是被重置，就开 WARP 或改走 Direct Upload
+3. 部署完成后把 `xxx.pages.dev` 丢给我
+
+## 收尾杂项
+
+1. [ ] 补推 `public/_headers`（现在只是本地未跟踪文件）
+2. [ ] 视觉验收：`http://localhost:4321/`（DSH 重启后预览会停，按下面命令重开）
+3. [ ] Lighthouse Mobile 分数（Edge DevTools）
+4. [ ] Cloudflare 账号仍在注册/未验证状态
 
 ## 本机沙箱的坑（下次直接用，不要再踩）
 

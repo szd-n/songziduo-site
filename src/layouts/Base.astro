@@ -13,8 +13,10 @@ interface Props {
 
 const { title, description, path = Astro.url.pathname, type = "website", noindex = false } = Astro.props;
 
-const canonical = new URL(path, site.url).href;
-const ogImage = new URL("/og.png", site.url).href;
+// 以 astro.config.mjs 的 site 为唯一来源，避免和数据文件里的域名写串
+const siteUrl = (Astro.site ?? new URL(site.url)).href.replace(/\/+$/, "");
+const canonical = new URL(path, siteUrl).href;
+const ogImage = new URL("/og.png", siteUrl).href;
 const current = Astro.url.pathname;
 
 const personLd = {
@@ -22,7 +24,7 @@ const personLd = {
   "@type": "Person",
   name: site.name,
   alternateName: [site.nameAlt, site.nameEn],
-  url: site.url + "/",
+  url: siteUrl + "/",
   jobTitle: "学生",
   email: "mailto:" + site.email,
   alumniOf: {
@@ -37,7 +39,7 @@ const websiteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: `${site.name} · ${site.nameEn}`,
-  url: site.url + "/",
+  url: siteUrl + "/",
   inLanguage: "zh-CN",
   description,
   author: { "@type": "Person", name: site.name },
