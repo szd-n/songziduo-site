@@ -1,6 +1,6 @@
 # 进度存档（供下次继续）
 
-> 最后更新：2026-11-05 22:40 · 第 0–5 步完成（23 个文件已在 GitHub）；第 6 步卡在 github.com 连接被重置
+> 最后更新：2026-11-08 18:35 · **已上线** https://songziduo-site.pages.dev （Cloudflare Pages + Git 自动部署）
 
 ## 已完成
 
@@ -9,6 +9,11 @@
 - **第 2 步**：Astro 静态站搭好，`npm run build` 通过，8 个页面
 - **第 3 步**：SiteHub 无文档 → 仅留 `.env.example` 空占位，未接入、未编造
 - **第 4 步**：本地 200/404/sitemap/robots/canonical 检查通过
+- **第 5 步**：代码推到 GitHub（`szd-n/songziduo-site`）
+- **第 6 步**：Cloudflare Pages 已部署并连上 Git，`git push` 后约 15 秒自动重新部署
+  - 线上地址：**https://songziduo-site.pages.dev**
+  - 域名坑：配置里原写 `songziduo.pages.dev`，实际是 `songziduo-site.pages.dev`，已改并验证
+  - `_headers` 已生效：nosniff / Referrer-Policy / X-Frame-Options / Permissions-Policy / HSTS
 
 ## 关键决策（不要推翻）
 
@@ -33,32 +38,23 @@
   在沙箱里 push 还受子进程限制。后续要推送，需在能弹登录窗口的终端里执行，或在 GitHub 网页直接改文件
 - 未提交：`public/_headers`（Cloudflare 安全头与缓存配置），等认证恢复后补推
 
-## 还差什么才能上线
+## 还差什么
 
 | 步 | 状态 | 要做的事 | 谁做 |
 |---|---|---|---|
-| 6 | **阻塞** | Cloudflare Pages 连 Git → 填 `npm run build` + `dist` → Deploy | 你点授权，我做验证 |
-| 6.1 | 待办 | 线上验证 `/`、`/robots.txt`、`/sitemap-index.xml`、canonical、404 | 我 |
-| 7 | 待办 | Google Search Console / 百度搜索资源平台验证文件 + 提交 sitemap | 我生成文件，你提交 |
-| 8 | 待办 | 上线审计：200 / robots / noindex / canonical / sitemap / 移动端 / 大陆访问 → P0/P1/P2 | 我 |
-| 杂 | 待办 | 补推 `public/_headers`；视觉验收；Lighthouse Mobile 分数 | 等凭据/你确认 |
+| 6 | ✅ 完成 | Pages 已连 Git 自动部署，线上 7 个页面全 200、未知路径 404 | 已完成 |
+| 7 | 待办 | Google Search Console / 百度搜索资源平台：验证 + 提交 sitemap | 我给清单，你提交 |
+| 8 | 待办 | 上线审计收尾：Lighthouse 分数、大陆访问抽样、自定义域名 | 你跑 Lighthouse，其余我做 |
 
-**第 6 步的阻塞原因**：Cloudflare 的 "Connect to Git" 会跳到 `github.com/login/oauth/...`，
-而你这条网络连接被重置（`ERR_CONNECTION_RESET`），OAuth 走不完。三条出路：
-① 过一阵重试；② 开 Cloudflare WARP 再授权；③ 改用 Pages Direct Upload（我 wrangler 直传，不经过 github.com）。
-
-## 明天的第一件事
-
-1. 打开 https://dash.cloudflare.com/ → Workers & Pages → Create → Pages → Connect to Git
-2. 能进到选仓库页面就继续；还是被重置，就开 WARP 或改走 Direct Upload
-3. 部署完成后把 `xxx.pages.dev` 丢给我
+**可选升级**：买自定义域名（`songziduo.com` 之类，付费）→ 把 `astro.config.mjs` 的 `site` 和
+`public/robots.txt` 的 Sitemap 一起改掉，再在 Cloudflare 里加 Custom domain。pages.dev 在大陆访问不稳定，这是主要短板。
 
 ## 收尾杂项
 
-1. [ ] 补推 `public/_headers`（现在只是本地未跟踪文件）
-2. [ ] 视觉验收：`http://localhost:4321/`（DSH 重启后预览会停，按下面命令重开）
+1. [x] `public/_headers` 已提交（含 HSTS）
+2. [ ] 视觉验收：https://songziduo-site.pages.dev
 3. [ ] Lighthouse Mobile 分数（Edge DevTools）
-4. [ ] Cloudflare 账号仍在注册/未验证状态
+4. [ ] 自定义域名（付费，未定）
 
 ## 本机沙箱的坑（下次直接用，不要再踩）
 
