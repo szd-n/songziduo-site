@@ -61,12 +61,12 @@ f_mono = font([r"C:\Windows\Fonts\consola.ttf", r"C:\Windows\Fonts\cour.ttf"], 2
 
 d = ImageDraw.Draw(og)
 d.text((72, 96), "SOFTWARE TECHNOLOGY  ·  在读", font=f_kick, fill=(34, 211, 238))
-d.text((72, 170), "宋子鐸", font=f_name, fill=(233, 238, 249))
-d.text((72, 300), "Song Ziduo", font=f_mono, fill=(141, 154, 180))
-d.text((72, 372), "在石家庄学软件技术，写代码，也顺手记录。", font=f_sub, fill=(200, 210, 230))
+d.text((72, 170), "临渊", font=f_name, fill=(233, 238, 249))
+d.text((72, 300), "Linyuan", font=f_mono, fill=(141, 154, 180))
+d.text((72, 372), "在文津馆学软件技术，写代码，也顺手记录。", font=f_sub, fill=(200, 210, 230))
 d.line((72, 470, 1128, 470), fill=(30, 42, 60), width=1)
 d.text((72, 505), "AdSkip · 时间折叠 · 记录", font=f_sub, fill=(141, 154, 180))
-d.text((72, 556), "songziduo.pages.dev", font=f_mono, fill=(34, 211, 238))
+d.text((72, 556), "songziduo-site.pages.dev", font=f_mono, fill=(34, 211, 238))
 
 og.save(os.path.join(OUT, "og.png"), optimize=True)
 print("avatar:", Image.open(os.path.join(OUT, "avatar.jpg")).size)

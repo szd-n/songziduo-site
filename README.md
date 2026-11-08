@@ -1,6 +1,6 @@
 # songziduo-site
 
-宋子鐸的个人主页。Astro 静态输出，部署目标是 Cloudflare Pages。
+临渊（Linyuan）的个人主页。Astro 静态输出，部署在 Cloudflare Pages。
 
 ## 页面
 
